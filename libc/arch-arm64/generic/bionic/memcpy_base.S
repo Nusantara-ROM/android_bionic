@@ -40,7 +40,6 @@
 #define H_h	srcend
 #define tmp1	x14
 
-#define L(l) .L ## l
 
 /* This implementation of memcpy correctly handles overlaps, therefore
    __memmove_aarch64 aliases to __memcpy_aarch64. By moving the src and
