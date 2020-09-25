@@ -47,17 +47,10 @@ int sigaction(int signal, const struct sigaction* bionic_new_action, struct siga
     kernel_new_action.sa_mask = bionic_new_action->sa_mask;
 #if defined(SA_RESTORER)
     kernel_new_action.sa_restorer = bionic_new_action->sa_restorer;
-#if defined(__aarch64__)
-    // arm64 has sa_restorer, but unwinding works best if you just let the
-    // kernel supply the default restorer from [vdso]. gdb doesn't care, but
-    // libgcc needs the nop that the kernel includes before the actual code.
-    // (We could add that ourselves, but why bother?)
-#else
     if (!(kernel_new_action.sa_flags & SA_RESTORER)) {
       kernel_new_action.sa_flags |= SA_RESTORER;
       kernel_new_action.sa_restorer = &__restore_rt;
     }
-#endif
 #endif
   }
 

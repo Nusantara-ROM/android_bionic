@@ -857,6 +857,7 @@ cc_library_static {
                 "arch-arm64/generic/bionic/wmemmove.S",
 
                 "arch-arm64/bionic/__bionic_clone.S",
+                "arch-arm64/bionic/__restore_rt.S",
                 "arch-arm64/bionic/_exit_with_stack_teardown.S",
                 "arch-arm64/bionic/setjmp.S",
                 "arch-arm64/bionic/syscall.S",
