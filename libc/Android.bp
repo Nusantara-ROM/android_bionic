@@ -829,6 +829,14 @@ cc_library_static {
             srcs: [
                 "arch-arm64/generic/bionic/__memcpy_chk.S",
             ],
+            kryo: {
+                srcs: [
+                    "arch-arm64/kryo/bionic/__memcpy_chk.S",
+                ],
+                exclude_srcs: [
+                    "arch-arm64/generic/bionic/__memcpy_chk.S",
+                ],
+            },
         },
     },
 }
@@ -932,6 +940,19 @@ cc_library_static {
                 "bionic/strnlen.c",
                 "bionic/strrchr.cpp",
             ],
+            kryo: {
+                srcs: [
+                    "arch-arm64/kryo/bionic/__memcpy.S",
+                    "arch-arm64/kryo/bionic/memcpy.S",
+                    "arch-arm64/kryo/bionic/memmove.S",
+                    "arch-arm64/kryo/bionic/wmemmove.S",
+                ],
+                exclude_srcs: [
+                    "arch-arm64/generic/bionic/memcpy.S",
+                    "arch-arm64/generic/bionic/memmove.S",
+                    "arch-arm64/generic/bionic/wmemmove.S",
+                ],
+            },
         },
 
         x86: {
@@ -1878,6 +1899,7 @@ cc_library_headers {
         "//system/memory/libmemunreachable:__subpackages__",
         "//system/unwinding/libunwindstack:__subpackages__",
         "//tools/security/sanitizer-status:__subpackages__",
+        "//vendor:__subpackages__",
     ],
     vendor_available: true,
     product_available: true,
@@ -2092,6 +2114,8 @@ genrule {
 
 cc_defaults {
     name: "crt_defaults",
+    // Disable sdclang: TODO(b/142476859)
+    sdclang: false,
     defaults: ["linux_bionic_supported"],
     vendor_available: true,
     product_available: true,
