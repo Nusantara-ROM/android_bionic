@@ -456,8 +456,9 @@ cc_library {
     ],
 
     lto: {
-        never: true,
+        thin: true,
     },
+    whole_program_vtables: true, // Requires LTO
 }
 
 cc_test {
